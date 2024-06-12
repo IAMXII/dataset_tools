@@ -7,6 +7,7 @@ from geometry_msgs.msg import Point32
 from argparse import ArgumentParser
 import numpy as np
 import cv2
+from tqdm import tqdm
 
 global i
 parser = ArgumentParser()
@@ -28,7 +29,7 @@ def read_from_bag(bag_file):
     #         # points = o3d.io.read_point_cloud(msg)
     #         points = msg.points
     #         pc_data.append(points)
-    for topic, msg, t in bag.read_messages(topics=['/livox/lidar']):
+    for topic, msg, t in tqdm(bag.read_messages(topics=['/radar_enhanced_pcl'])):
         # image = cv2.imread(msg)
         time_cur = msg.header.stamp.to_sec()
         if time_cur < time1:
@@ -40,6 +41,8 @@ def read_from_bag(bag_file):
         points = msg.points
 
         pc_data.append(points)
+    time_0 = time_0[10:-10]
+    pc_data = pc_data[10:-10]
     with open("output1.txt", 'w') as file:
         # file.write(str(time_cur) + '\n')
         for item in time_0:
@@ -60,7 +63,7 @@ def read_from_bag(bag_file):
             else:
                 np_arr = np.frombuffer(msg.data, np.uint8)
             cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-            cv2.imwrite(f"{output_folder2}/image_" + str(i) + ".jpg", cv_image)
+            cv2.imwrite(f"{output_folder2}/image_" + str(i+5920) + ".jpg", cv_image)
             print("Saved image" + str(i))
             # im_data.append(cv_image)
             if (i < len(time_0)-1):
@@ -68,7 +71,7 @@ def read_from_bag(bag_file):
                 if time_0[i] <= time_cur:
                     np_arr = np.frombuffer(msg.data, np.uint8)
                     cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-                    cv2.imwrite(f"{output_folder2}/image_" + str(i) + ".jpg", cv_image)
+                    cv2.imwrite(f"{output_folder2}/image_" + str(i+5920) + ".jpg", cv_image)
                     i += 1
                 with open("output3.txt", 'a') as file:
                     file.write(str(time_cur) + '\n')
@@ -103,7 +106,7 @@ def save(im_data, pc_data, output_folder1, output_folder2):
             z.append(point.z)
         points = np.array([x, y, z])
         points = points.T
-        pcd_filename = f"{output_folder1}/pointcloud_" + str(i) + ".pcd"
+        pcd_filename = f"{output_folder1}/pointcloud_" + str(i+5920) + ".pcd"
         i = i + 1
         pointcloud = o3d.geometry.PointCloud()
         pointcloud.points = o3d.utility.Vector3dVector(points)
@@ -114,19 +117,20 @@ def save(im_data, pc_data, output_folder1, output_folder2):
 
 if __name__ == "__main__":
     i = 0
-    bag_file = '../Downloads/360_v2/cp/cp_2022-02-26.bag'  # args.bag_path
+    # bag_file = '../Downloads/360_v2/cp/cp_2022-02-26.bag'  # args.bag_path
+    bag_file = args.bag_path
     bag_path = os.path.dirname(bag_file)
     if not args.output_path:
-        output_folder1 = os.path.join(bag_path, 'pcds')
-        output_folder2 = os.path.join(bag_path, 'images')
+        output_folder1 = os.path.join(bag_path, 'pcds_radar')
+        output_folder2 = os.path.join(bag_path, 'images_radar')
 
         if not os.path.exists(output_folder1):
             os.makedirs(output_folder1)
         if not os.path.exists(output_folder2):
             os.makedirs(output_folder2)
     else:
-        output_folder1 = os.path.join(args.output_path, "pcds")
-        output_folder2 = os.path.join(args.output_path, "images")
+        output_folder1 = os.path.join(args.output_path, "pcds_radar")
+        output_folder2 = os.path.join(args.output_path, "images_radar")
         if not os.path.exists(output_folder1):
             os.makedirs(output_folder1)
         if not os.path.exists(output_folder2):

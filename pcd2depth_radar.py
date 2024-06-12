@@ -11,7 +11,7 @@ def sort_by_number(filename):
 
 
 # 点云数据
-pointcloud_path = '../dataset/cp/pcds'
+pointcloud_path = '../dataset/nyl/pcds_radar'
 pointcloud = sorted(os.listdir(pointcloud_path), key=sort_by_number)
 # print(pointcloud)
 # 相机内参
@@ -66,7 +66,7 @@ if __name__ == "__main__":
                     depth_image[v, u] = projected_point[2]
         # print("count:",count)
         # print("count1:",count1)
-        cv2.imwrite("../dataset/cp/depths_ambiguity/depth_{}.png".format(i), depth_image)
+        cv2.imwrite("../dataset/nyl/depths_radar/depth_{}.png".format(i), depth_image)
         end_time = time()
         # print('time_{}'.format(i), end_time - start_time)
 # # 可视化深度图
