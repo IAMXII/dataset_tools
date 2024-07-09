@@ -16,6 +16,7 @@ args = parser.parse_args()
 step = 1 / 6
 
 
+
 def read_from_bag(bag_file):
     bag = rosbag.Bag(bag_file, 'r')
     pc_data = []
@@ -110,7 +111,7 @@ def save(im_data, pc_data, output_folder1, output_folder2):
 
 if __name__ == "__main__":
     i = 0
-    bag_file = '../Downloads/360_v2/cp/cp_2022-02-26.bag'  # args.bag_path
+    bag_file = '../dataset/ntu_nyl/'  # args.bag_path
     bag_path = os.path.dirname(bag_file)
     if not args.output_path:
         output_folder1 = os.path.join(bag_path, 'pcds')

@@ -42,7 +42,7 @@ if __name__ == "__main__":
         # 将点云投影到深度图
         count=0
         count1 = 0
-        depth_image = np.zeros((480, 640), dtype=np.float32)  # 初始化深度图
+        depth_image = np.zeros((480, 640), dtype=np.uint16)  # 初始化深度图
         for point in points:
             # 将点云转换为齐次坐标
             point_homogeneous = np.array([point[0], point[1], point[2], 1])
@@ -58,12 +58,12 @@ if __name__ == "__main__":
             if 0 <= u < 640 and 0 <= v < 480:
                 if depth_image[v, u]:
                     count+=1
-                    depth_image[v, u] = min(depth_image[v, u], projected_point[2])
+                    depth_image[v, u] = min(depth_image[v, u], projected_point[2]*400)
                     # depth_image[v, u] = projected_point[2]
                 # print(v, u, depth_image[v, u])
                 else:
                     count1+=1
-                    depth_image[v, u] = projected_point[2]
+                    depth_image[v, u] = projected_point[2]*400
         # print("count:",count)
         # print("count1:",count1)
         cv2.imwrite("../dataset/cp/depths_ambiguity/depth_{}.png".format(i), depth_image)
