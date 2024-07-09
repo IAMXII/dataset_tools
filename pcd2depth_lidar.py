@@ -11,7 +11,7 @@ def sort_by_number(filename):
 
 
 # 点云数据
-pointcloud_path = '../dataset/cp/pcds_lidar'
+pointcloud_path = '../dataset/nyl/pcds_lidar'
 pointcloud = sorted(os.listdir(pointcloud_path), key=sort_by_number)
 # print(pointcloud)
 # 相机内参
@@ -69,7 +69,7 @@ if __name__ == "__main__":
                     # depth_image[v, u] = projected_point[2]*100
                     # print("count:",count)
         # print("count1:",count1)
-        cv2.imwrite("../dataset/cp/depths_lidar/depth_{}.png".format(i), depth_image)
+        cv2.imwrite("../dataset/nyl/depths_lidar/depth_{}.png".format(i), depth_image)
         # print("Min depth:", np.min(depth_image))
         # print("Max depth:", np.max(depth_image))
         end_time = time()
