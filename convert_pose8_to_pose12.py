@@ -11,7 +11,7 @@ if __name__ == '__main__':
     H_list = []
     with open(args.source_file, 'r') as f:
         lines = f.readlines()
-        for line in lines[1:]:
+        for line in lines[0:]:
             line = line.strip().split(" ")
             line = list(map(float, line))
             trans = np.array(line[1:4])
