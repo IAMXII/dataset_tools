@@ -19,13 +19,13 @@ def generate_splatam(args):
     os.makedirs(sp_path, exist_ok=True)
     os.makedirs(os.path.join(sp_path, "rgb"), exist_ok=True)
     os.makedirs(os.path.join(sp_path, "depth"), exist_ok=True)
-    rgb = os.listdir(os.path.join(args.source_path, "images_lidar"))
-    depth = os.listdir(os.path.join(args.source_path, "depths_lidar"))
+    rgb = os.listdir(os.path.join(args.source_path, "images_lidar_loop"))
+    depth = os.listdir(os.path.join(args.source_path, "depths_lidar_loop"))
     rgb = sorted(rgb, key=sort_by_number)
     depth = sorted(depth, key=sort_by_number)
     for i, img in enumerate(rgb):
-        img_path = os.path.join(args.source_path, "images_lidar", img)
-        depth_path = os.path.join(args.source_path, "depths_lidar", depth[i])
+        img_path = os.path.join(args.source_path, "images_lidar_loop", img)
+        depth_path = os.path.join(args.source_path, "depths_lidar_loop", depth[i])
         shutil.copy(img_path, os.path.join(sp_path, "rgb", img))
         shutil.copy(depth_path, os.path.join(sp_path, "depth", depth[i]))
     with open(os.path.join(sp_path, "rgb.txt"), "w") as f:
@@ -35,7 +35,7 @@ def generate_splatam(args):
         for i in range(len(rgb)):
             f.write(f"{i} depth/{depth[i]}\n")
     with open(os.path.join(sp_path, "groundtruth.txt"), "w") as f:
-        text = os.path.join(args.source_path, "test.txt")
+        text = os.path.join(args.source_path, "groundtruth_loop.txt")
         with open(text, "r") as f1:
             lines = f1.readlines()
         for i, line in enumerate(lines):
@@ -148,16 +148,16 @@ def generate_3dgs(args):
     os.makedirs(gaussian_path, exist_ok=True)
     images_path = os.path.join(gaussian_path, "images")
     os.makedirs(images_path, exist_ok=True)
-    rgb = os.listdir(os.path.join(args.source_path, "images_lidar"))
+    rgb = os.listdir(os.path.join(args.source_path, "images_lidar_loop"))
     rgb = sorted(rgb, key=sort_by_number)
     for i, image in enumerate(rgb):
-        if i % 5 == 0:
-            inputname = os.path.join(args.source_path, "images_lidar", image)
-            filename = os.path.join(images_path, rgb[int(i / 5)])
+        if i % 2 == 0:
+            inputname = os.path.join(args.source_path, "images_lidar_loop", image)
+            filename = os.path.join(images_path, rgb[int(i / 2)])
             shutil.copy(inputname, filename)
 
 
 if __name__ == "__main__":
-    # generate_splatam(args)
-    generate_nerfpp(args)
-    # generate_3dgs(args)
+    generate_splatam(args)
+    # generate_nerfpp(args)
+    generate_3dgs(args)

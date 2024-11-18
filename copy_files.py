@@ -4,6 +4,8 @@ import shutil
 from tqdm import tqdm
 from argparse import ArgumentParser
 
+from convert import files
+
 
 def sort_by_number(filename):
     return int(''.join(filter(str.isdigit, filename)))
@@ -20,8 +22,8 @@ file = sorted(file, key=sort_by_number)
 file_path = sorted(file_path, key=sort_by_number)
 
 for i in range(2410):
-    if i % 2 == 0:
-        file_o_path = os.path.join(args.output_path, "image_" + str(int(i / 2)) + ".jpg")
+    if i >=1106:
+        file_o_path = os.path.join(args.output_path, str(int(i)) + ".jpg")
         shutil.copy(file_path[i], file_o_path)
         print(f'Copied: {file_o_path}')
 # for i in range(701):

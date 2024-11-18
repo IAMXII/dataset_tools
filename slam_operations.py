@@ -1,5 +1,13 @@
 import numpy as np
 from scipy.spatial.transform import Rotation as R
+import re
+def sort_by_number(filename):
+    return int(''.join(filter(str.isdigit, filename)))
+
+def get_digit_from_filename(file)->str:
+    match = re.search(r'\d+', file)
+    if match:
+        return match.group()
 
 
 # 定义一个3x3的旋转矩阵

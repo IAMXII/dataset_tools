@@ -12,7 +12,7 @@ from pathlib import Path
 from plyfile import PlyData, PlyElement
 from utils.sh_utils import SH2RGB
 from scene.gaussian_model import BasicPointCloud
-from argparse import ArgumentParser
+
 import open3d as o3d
 if __name__ == "__main__":
     file_path = "../Downloads/360_v2/ntu_garden"
@@ -42,3 +42,4 @@ if __name__ == "__main__":
     # 保存为 PCD 文件
     save_path = os.path.join(file_path, "output_with_data.pcd")
     o3d.io.write_point_cloud(save_path, pcd)
+print("Done")
