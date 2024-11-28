@@ -4,8 +4,9 @@ from PyQt6.QtCore import QTimer, QDir
 from PyQt6.QtWidgets import QPushButton, QMainWindow, QWidget, QApplication, \
     QVBoxLayout, QTabWidget, QProgressBar, QDialog, QLabel, QFileDialog, QHBoxLayout, QTextEdit, QLineEdit
 from OpenGL.GL import glClear, GL_COLOR_BUFFER_BIT, glClearColor
-from demo_1117 import MyDialog
 from rename_files import rename_files
+from copy_files import copy_files
+
 
 def select_directory(my_dialog):
     """
@@ -125,11 +126,12 @@ class MainWindow(QMainWindow):
         lay.addWidget(button1)
         lay.addWidget(button2)
         centralWidget.setLayout(lay)
-        self.tab_widget.addTab(centralWidget, "文件重命名")
+        self.tab_widget.addTab(centralWidget, "文件操作")
         progress_tab = QWidget()
         self.setup_progress_tab(progress_tab)
         self.tab_widget.addTab(progress_tab, "进度条示例")
         button1.clicked.connect(self.open_new_window)
+        button2.clicked.connect(self.open_copy_window)
         # layout = QVBoxLayout()
         # layout.addWidget(self.tab_widget)
         # centralWidget.setLayout(layout)
@@ -190,6 +192,9 @@ class MainWindow(QMainWindow):
         self.dlg = rename_files()
         # 显示对话框，代码阻塞在这里，
         # 等待对话框关闭后，才能继续往后执行
+        self.dlg.exec()
+    def open_copy_window(self):
+        self.dlg = copy_files()
         self.dlg.exec()
 
 
