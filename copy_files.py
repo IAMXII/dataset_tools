@@ -22,7 +22,7 @@ file = sorted(file, key=sort_by_number)
 file_path = sorted(file_path, key=sort_by_number)
 
 for i in range(2410):
-    if i >=1106:
+    if i >= 1106:
         file_o_path = os.path.join(args.output_path, str(int(i)) + ".jpg")
         shutil.copy(file_path[i], file_o_path)
         print(f'Copied: {file_o_path}')
