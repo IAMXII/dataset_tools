@@ -31,7 +31,6 @@ def images_to_video(image_folder, output_path="output.mp4", fps=30):
     video.release()
     print(f"视频已保存到 {output_path}")
 
-
 if __name__ == "__main__":
     # 修改路径和参数
     images_to_video(

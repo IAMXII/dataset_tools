@@ -13,7 +13,7 @@ def sort_by_number(filename):
 
 
 # 读取相机标定 yaml 文件
-with open("ntu.yaml", "r") as f:   # 修改为你的 yaml 文件路径
+with open("our_car.yaml", "r") as f:   # 修改为你的 yaml 文件路径
     config = yaml.safe_load(f)
 
 # 提取外参 (lidar_to_cam)
@@ -24,10 +24,10 @@ K = torch.tensor(config["intrinsics"], dtype=torch.float32, device="cuda")  # (3
 img_w, img_h = config["image_size"]
 
 # 点云路径
-pointcloud_path = '/home/liuwei/zyf/cp/pcds_radar'
+pointcloud_path = '/home/liuwei/mnt/traj_data/hitsz_loop/pcds_radar'
 pointcloud = sorted(os.listdir(pointcloud_path), key=sort_by_number)
 
-save_path = "/home/liuwei/zyf/cp/depths_radar"
+save_path = "/home/liuwei/mnt/traj_data/hitsz_loop/depths_radar"
 os.makedirs(save_path, exist_ok=True)
 
 if __name__ == "__main__":
@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
         # 转回 CPU 并保存
         depth_image = depth_image_gpu.cpu().numpy().astype(np.uint16)
-        cv2.imwrite(f"{save_path}/depth_{i}.png", depth_image)
+        cv2.imwrite(f"{save_path}/depth_{i:06d}.png", depth_image)
 
         end_time = time()
         # print(f"time_{i}: {end_time - start_time:.4f}")
