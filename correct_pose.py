@@ -8,7 +8,7 @@ def load_tum_trajectory(file_path):
     data = []
     with open(file_path, 'r') as f:
         for line in f:
-            if line.startswith("#") or len(line.strip()) == 0:                                                            continue
+            if line.startswith("#") or len(line.strip()) == 0:
                 continue
             parts = line.strip().split()
             if len(parts) == 8:

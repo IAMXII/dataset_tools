@@ -20,7 +20,7 @@ dist_coef = np.array(config["coef"])
 # dist_coeff = np.array([0.011770, -0.041851, 0.000701, -0.000319, 0.0])
 
 # 输入输出路径
-image_folder = "/home/liuwei/mnt/vggt_dataset/cp"
+image_folder = "/home/liuwei/mnt/vggt_dataset/cp/images_lidar_loop"
 output_folder = os.path.join(image_folder, "undistorted_images")
 os.makedirs(output_folder, exist_ok=True)
 

@@ -29,6 +29,6 @@ def extract_frames(img_dir, save_dir, num_frames=100):
 
 # 使用示例
 if __name__ == "__main__":
-    img_dir = "/home/liuwei/mnt/dataset/cp/images_lidar_loop"       # 原始数据集路径
-    save_dir = "/home/liuwei/mnt/vggt_dataset/cp"  # 保存路径
-    extract_frames(img_dir, save_dir, num_frames=50)
+    img_dir = "/home/liuwei/mnt/vggt_dataset/cp/images_lidar_loop/undistorted_images"       # 原始数据集路径
+    save_dir = "/home/liuwei/mnt/vggt_dataset/cp/images_corner/images_1000"  # 保存路径
+    extract_frames(img_dir, save_dir, num_frames=1000)
